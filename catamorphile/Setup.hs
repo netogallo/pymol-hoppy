@@ -2,13 +2,13 @@ module Main where
 
 
 import Foreign.Hoppy.Setup (ProjectConfig (..), hsMain)
-import qualified Foreign.Hoppy.Example.Generator as Generator
+import qualified Foreign.Pymol as Pymol
 
 main =
   hsMain
   ProjectConfig
-  { interfaceResult = Generator.interfaceResult
-  , cppPackageName = "hoppy-example-cpp"
+  { interfaceResult = Pymol.interfaceResult
+  , cppPackageName = "catamorphile-cpp"
   , cppSourcesDir = "cpp"
   , hsSourcesDir = "src"
   }

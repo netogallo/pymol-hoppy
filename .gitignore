@@ -3,3 +3,4 @@ dist-newstyle
 *gen_*.hpp
 *.o
 *.so
+*dist

@@ -1,0 +1,5 @@
+dist-newstyle
+*gen_*.cpp
+*gen_*.hpp
+*.o
+*.so

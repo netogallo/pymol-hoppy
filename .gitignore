@@ -4,3 +4,4 @@ dist-newstyle
 *.o
 *.so
 *dist
+Catamorphile.egg-info

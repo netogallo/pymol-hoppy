@@ -3,7 +3,7 @@
 OS=$(shell ghc -e ":m +System.Info" -e "putStrLn os")
 
 CC = g++
-CFLAGS = -O2 -I/home/neto/code/pymol-open-source/layer0 -I/home/neto/code/pymol-open-source/layer1 -I/home/neto/code/pymol-open-source/layer2 -I/home/neto/code/pymol-open-source/layer3 -I/home/neto/code/pymol-open-source/layer4 -I/home/neto/code/pymol-open-source/layer5 -I/home/neto/code/pymol-open-source/ov/src -I/usr/include/python3.10/ -I/home/neto/code/pymol-open-source/include/
+CFLAGS = -O2 -I/home/neto/code/pymol-open-source/layer0 -I/home/neto/code/pymol-open-source/layer1 -I/home/neto/code/pymol-open-source/layer2 -I/home/neto/code/pymol-open-source/layer3 -I/home/neto/code/pymol-open-source/layer4 -I/home/neto/code/pymol-open-source/layer5 -I/home/neto/code/pymol-open-source/ov/src -I/usr/include/python3.10/ -I/home/neto/code/pymol-open-source/include/ -I/home/neto/.ghcup/ghc/8.10.7/lib/ghc-8.10.7/include/ -L/home/neto/code/pymol-open-source/contrib/catamorphine/ -lpymol
 
 .PHONY: clean install
 

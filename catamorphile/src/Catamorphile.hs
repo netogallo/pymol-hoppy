@@ -9,4 +9,6 @@ test :: IntPtr -> IO ()
 test = testTy . intPtrToPtr
 
 testTy :: Ptr SeleAtomIterator -> IO ()
-testTy _ = pure ()
+testTy _ = do
+  print "haskell"
+  pure ()

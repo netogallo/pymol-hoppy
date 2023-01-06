@@ -1,13 +1,11 @@
 #include "catamorphile.hpp"
+#include "AtomIterators.h"
 
 #include "Catamorphile_stub.h"
 
 static PyObject* trampoline(PyObject* self, PyObject* args) {
-  test(0);
-  test(0);
-  test(0);
-  test(0);
-  test(0);
+  //SeleAtomIterator ai(nullptr, "");
+  //SeleAtomIterator ai2(nullptr, "");
   test(0);
   test(0);
   return self;

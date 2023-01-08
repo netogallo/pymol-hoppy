@@ -1,14 +1,17 @@
+{-# LANGUAGE ViewPatterns #-}
 module Catamorphile (test) where
 
 import Foreign (IntPtr(..), Ptr, intPtrToPtr)
-import Foreign.Pymol.AtomIterators (SeleAtomIterator)
+import Foreign.Storable (Storable(peek))
+import Foreign.Pymol.AtomIterators (SeleAtomIterator(..), getAtm, next)
 
-foreign export ccall test :: IntPtr -> IO ()
+foreign export ccall test :: IntPtr -> IO Int
 
-test :: IntPtr -> IO ()
-test = testTy . intPtrToPtr
+-- test :: IntPtr -> IO Int
+-- test = testTy . intPtrToPtr
 
-testTy :: Ptr SeleAtomIterator -> IO ()
-testTy _ = do
-  print "haskell"
-  pure ()
+test :: IntPtr -> IO Int
+test (SeleAtomIterator . intPtrToPtr -> it) = do
+--  it <- atomIterator
+  next it
+  getAtm it

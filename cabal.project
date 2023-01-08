@@ -2,3 +2,4 @@ packages:
         catamorphile-generator
         catamorphile-cpp
         catamorphile
+        pymol-hoppy-cpp

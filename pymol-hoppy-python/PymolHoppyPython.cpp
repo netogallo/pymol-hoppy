@@ -1,4 +1,4 @@
-#include "catamorphile.hpp"
+#include "PymolHoppyPython.hpp"
 
 #include "AtomIterators.h"
 #include "Cmd.h"
@@ -9,7 +9,7 @@
 #include "os_python.h"
 #include "Selector.h"
 
-#include "Catamorphile_stub.h"
+#include "Data/Pymol/Extra_stub.h"
 
 #define API_SETUP_ARGS(G, self, args, ...)				\
   if (!PyArg_ParseTuple(args, __VA_ARGS__))                                    \
@@ -28,7 +28,7 @@
   }
 
 static PyObject* trampoline(PyObject* self, PyObject* args) {
-
+  //////////////////
   PyMOLGlobals *G = NULL;
   PyObject* pymol;
   char *str1;
@@ -65,7 +65,7 @@ static PyObject* trampoline(PyObject* self, PyObject* args) {
   return result;
 }
 
-static PyMethodDef CatamorphileMethods[] = {
+static PyMethodDef PymolHoppyPythonMethods[] = {
     { "trampoline"
     , trampoline
     , METH_VARARGS
@@ -73,18 +73,18 @@ static PyMethodDef CatamorphileMethods[] = {
     {NULL, NULL }        /* Sentinel */
 };
 
-static struct PyModuleDef CatamorphileModule = {
+static struct PyModuleDef PymolHoppyPythonModule = {
     PyModuleDef_HEAD_INIT,
-    "catamorphile",   /* name of module */
+    "pymol_hoppy_python",   /* name of module */
     NULL,
     -1,
-    CatamorphileMethods
+    PymolHoppyPythonMethods
 };
 
 PyMODINIT_FUNC
-PyInit_catamorphile(void)
+PyInit_pymol_hoppy_python(void)
 {
   char** argv = new char*[]{"pymol"};
   hs_init(0, &argv);
-  return PyModule_Create(&CatamorphileModule);
+  return PyModule_Create(&PymolHoppyPythonModule);
 }

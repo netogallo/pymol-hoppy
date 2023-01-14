@@ -3,9 +3,18 @@ cmake_minimum_required(VERSION 3.10)
 #Name your project here
 project(pymol-hoppy-cpp)
 
-set( CMAKE_CXX_STANDARD 17 )
-set( CMAKE_CXX_STANDARD_REQUIRED ON )
-set( CMAKE_POSITION_INDEPENDENT_CODE ON )
+#set( CMAKE_CXX_STANDARD 17 )
+#set( CMAKE_CXX_STANDARD_REQUIRED OFF )
+#set( CMAKE_POSITION_INDEPENDENT_CODE ON )
+
+# string(
+#   REGEX REPLACE "-std=c++11"
+#   ""
+#   CMAKE_CXX_FLAGS
+#   ${CMAKE_CXX_FLAGS}
+# )
+
+add_compile_options(-O2 -dynamic -shared -fPIC)
 
 find_package(
   Python3
@@ -30,22 +39,24 @@ find_library(
 add_library(pymol SHARED IMPORTED)
 set_property(TARGET pymol PROPERTY IMPORTED_LOCATION ${PYMOL_CMD})
 
-find_program(
-  GHC_PKG
-  ghc-pkg
-)
+# find_program(
+#   GHC_PKG
+#   ghc-pkg
+# )
 
-execute_process(
-  COMMAND ${GHC_PKG} field ghc include-dirs
-  OUTPUT_VARIABLE GHC_INCLUDE
-)
+# execute_process(
+#   COMMAND ${GHC_PKG} field ghc include-dirs
+#   OUTPUT_VARIABLE GHC_INCLUDE
+# )
 
-string(
-  REGEX REPLACE "include-dirs:[ \t\r\n]*"
-  ""
-  GHC_INCLUDE
-  ${GHC_INCLUDE}
-)
+# string(
+#   REGEX REPLACE "include-dirs:[ \t\r\n]*"
+#   ""
+#   GHC_INCLUDE
+#   ${GHC_INCLUDE}
+# )
+
+set(GHC_INCLUDE "/home/neto/.ghcup/ghc/8.10.7/lib/ghc-8.10.7/include/")
 
 string(
   REGEX REPLACE "\n"
@@ -157,3 +168,4 @@ message(Python3_VERSION="${Python3_VERSION}")
 message(GHC="${GHC}")
 message(GHC_INCLUDE="${GHC_INCLUDE}")
 message(PYMOL_LAYER0="${PYMOL_LAYER0}")
+message(COMPILE_OPTIONS="${COMPILE_OPTIONS}")

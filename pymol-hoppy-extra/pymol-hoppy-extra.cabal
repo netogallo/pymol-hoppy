@@ -1,5 +1,5 @@
 cabal-version:      2.4
-name:               pymol-hoppy-cpp
+name:               pymol-hoppy-extra
 version:            0.1.0.0
 synopsis:
 
@@ -13,25 +13,14 @@ license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Ernesto Rodriguez
 maintainer:         neto@netowork.me
-
+                    
 -- A copyright notice.
 -- copyright:
 category:           Data
-extra-source-files: CHANGELOG.md                    
-                    Makefile
-                    cpp/Support.cpp
-                    cpp/Support.hpp
+extra-source-files: CHANGELOG.md
 
-
-custom-setup
-  setup-depends:
-      base
-    , Cabal
-    , hoppy-runtime >=0.8 && <0.9
-    , pymol-hoppy-generator -any
-                    
 library
-    exposed-modules:  Foreign.Pymol.Internal.Dummy
+    exposed-modules:  Data.Pymol.Extra
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -39,6 +28,8 @@ library
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>=4.14.3.0
+                    , pymol-hoppy -any
+                    , hoppy-runtime >=0.8 && <0.9
+
     hs-source-dirs:   src
     default-language: Haskell2010
-    ghc-options: -lstdc++

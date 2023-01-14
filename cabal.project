@@ -2,3 +2,4 @@ packages:
         pymol-hoppy-generator
         pymol-hoppy-cpp
         pymol-hoppy
+        pymol-hoppy-extra

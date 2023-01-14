@@ -1,5 +1,4 @@
 packages:
-        catamorphile-generator
-        catamorphile-cpp
-        catamorphile
+        pymol-hoppy-generator
         pymol-hoppy-cpp
+        pymol-hoppy

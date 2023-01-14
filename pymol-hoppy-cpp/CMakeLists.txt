@@ -47,6 +47,13 @@ string(
   ${GHC_INCLUDE}
 )
 
+string(
+  REGEX REPLACE "\n"
+  ""
+  GHC_INCLUDE
+  ${GHC_INCLUDE}
+)
+
 find_path(
   PYMOL_LAYER0
   PyMOLGlobals.h
@@ -120,26 +127,27 @@ find_path(
 )
 
 add_library(
-  libHsPymolCpp SHARED
-  cpp/gen_AtomIterators.o
-  cpp/gen_std.o
+  HsPymolCpp SHARED
+  cpp/gen/layer3/gen_AtomIterators.cpp
+  cpp/gen/gen_PymolSupport.cpp
+  cpp/gen/gen_std.cpp
+  cpp/Support.cpp
 )
 
-set_target_properties(libHsPymolCpp PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(HsPymolCpp PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories(
-  libHsPymolCpp
-  PUBLIC ${GHC_INCLUDE} ${PYMOL_LAYER0} ${PYMOL_LAYER1} ${PYMOL_LAYER2} ${PYMOL_LAYER3} ${PYMOL_LAYER4} ${PYMOL_LAYER5} ${PYMOL_OV} ${PYMOL_INCLUDE}
+  HsPymolCpp
+  PUBLIC "cpp/" ${GHC_INCLUDE} ${PYMOL_LAYER0} ${PYMOL_LAYER1} ${PYMOL_LAYER2} ${PYMOL_LAYER3} ${PYMOL_LAYER4} ${PYMOL_LAYER5} ${PYMOL_OV} ${PYMOL_INCLUDE}
 )
 
 target_link_libraries(
-  libHsPymolCpp
+  HsPymolCpp
   pymol
 )
 
 install(
-  TARGETS libHsPymolCpp
-  LIBRARY DESTINATION ${LIB_DIR}
+  TARGETS HsPymolCpp
 )
 
 

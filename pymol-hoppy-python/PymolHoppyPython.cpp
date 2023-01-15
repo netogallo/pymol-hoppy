@@ -28,7 +28,7 @@
   }
 
 static PyObject* trampoline(PyObject* self, PyObject* args) {
-  //////////////////
+  ////////////////////
   PyMOLGlobals *G = NULL;
   PyObject* pymol;
   char *str1;

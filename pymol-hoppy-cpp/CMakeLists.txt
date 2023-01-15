@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 #Name your project here
 project(pymol-hoppy-cpp)
 
+set(CMAKE_CXX_COMPILER "g++")
 #set( CMAKE_CXX_STANDARD 17 )
 #set( CMAKE_CXX_STANDARD_REQUIRED OFF )
 #set( CMAKE_POSITION_INDEPENDENT_CODE ON )

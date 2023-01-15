@@ -1,0 +1,11 @@
+dist-newstyle
+*gen_*.cpp
+*gen_*.hpp
+*.o
+*.so
+*dist
+Catamorphile.egg-info
+CMakeFiles
+pymol-hoppy-cpp/build
+Pymol_Hoppy_Python.egg-info/
+*.cif

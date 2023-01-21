@@ -1,5 +1,5 @@
 packages:
-        pymol-hoppy-generator
-        pymol-hoppy-cpp
-        pymol-hoppy
-        pymol-hoppy-extra
+        pymol-hoppy-generator/*.cabal
+        pymol-hoppy-cpp/*.cabal
+        pymol-hoppy/*.cabal
+        pymol-hoppy-extra/*.cabal

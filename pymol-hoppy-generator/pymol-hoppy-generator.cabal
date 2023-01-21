@@ -33,6 +33,7 @@ library
     hs-source-dirs:   src
     exposed-modules:
       Foreign.Pymol
+      Foreign.Pymol.Layer2.AtomInfo
       Foreign.Pymol.Layer3.AtomIterators
       Foreign.Pymol.Support
     default-language: Haskell2010

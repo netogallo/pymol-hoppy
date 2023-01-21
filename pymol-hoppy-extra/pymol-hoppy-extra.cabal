@@ -21,6 +21,7 @@ extra-source-files: CHANGELOG.md
 
 library
     exposed-modules:  Data.Pymol.Extra
+                      Data.Pymol.Extra.MonadicStreamFunction
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -28,6 +29,7 @@ library
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>=4.14.3.0
+                    , dunai ^>= 0.9.2
                     , pymol-hoppy -any
                     , hoppy-runtime >=0.8 && <0.9
 

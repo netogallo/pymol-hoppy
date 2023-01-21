@@ -5,9 +5,11 @@ module Foreign.Pymol.Layer3.AtomIterators
   ) where
 
 
-import Foreign.Hoppy.Generator.Spec ( Class, Module, addReqIncludes, classSetEntityPrefix, ident, includeLocal, makeClass
-                                    , makeModule, mkMethod', moduleAddExports, moduleModify', np, toExport)
-import Foreign.Hoppy.Generator.Types (intT, voidT)
+import           Foreign.Hoppy.Generator.Spec ( Class, Module, addReqIncludes, classSetEntityPrefix, ident, includeLocal, makeClass
+                                              , makeModule, mkMethod', moduleAddExports, moduleModify', np, toExport)
+import           Foreign.Hoppy.Generator.Types (boolT, intT, objT, ptrT, voidT)
+
+import           Foreign.Pymol.Layer2.AtomInfo (classAtomInfo)
 
 component :: Module
 component =
@@ -24,9 +26,11 @@ classAbstractAtomIterator =
   makeClass (ident "AbstractAtomIterator") Nothing [] methods
 
   where
-    getAtm = mkMethod' "getAtm" "getAtm" np intT
-    next = mkMethod' "next" "next" np voidT
-    methods = [getAtm, next]
+    methods =
+      [ mkMethod' "getAtm" "getAtm" np intT
+      , mkMethod' "next" "next" np boolT
+      , mkMethod' "getAtomInfo" "getAtomInfo" np . ptrT $ objT classAtomInfo
+      ]
 
 classSeleAtomIterator :: Class
 classSeleAtomIterator =

@@ -1,0 +1,13 @@
+cradle:
+  cabal:
+    - path: "pymol-hoppy-generator/src"
+      component: "exe:pymol-hoppy-generator"
+
+    - path: "pymol-hoppy/src"
+      component: "lib:pymol-hoppy"
+
+    - path: "pymol-hoppy-cpp/src"
+      component: "lib:pymol-hoppy-cpp"
+
+    - path: "pymol-hoppy-extra/src"
+      component: "lib:pymol-hoppy-extra"

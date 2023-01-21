@@ -9,6 +9,7 @@ module Data.Pymol.Layer3.AtomIterators (
   AbstractAtomIteratorPtr (..),
   getAtm,
   next,
+  getAtomInfo,
   AbstractAtomIteratorConst (..),
   castAbstractAtomIteratorToConst,
   AbstractAtomIterator (..),
@@ -26,14 +27,16 @@ module Data.Pymol.Layer3.AtomIterators (
   SeleAtomIteratorSuperConst (..),
   ) where
 
+import qualified Data.Pymol.Layer2.AtomInfo as M2
 import qualified Foreign as HoppyF
 import qualified Foreign.C as HoppyFC
 import qualified Foreign.Hoppy.Runtime as HoppyFHR
-import Prelude (($), (.), (=<<), (==))
+import Prelude (($), (.), (/=), (=<<), (==))
 import qualified Prelude as HoppyP
 
 foreign import ccall "genpop__AbstractAtomIterator_getAtm" getAtm' ::  HoppyF.Ptr AbstractAtomIterator -> HoppyP.IO HoppyFC.CInt
-foreign import ccall "genpop__AbstractAtomIterator_next" next' ::  HoppyF.Ptr AbstractAtomIterator -> HoppyP.IO ()
+foreign import ccall "genpop__AbstractAtomIterator_next" next' ::  HoppyF.Ptr AbstractAtomIterator -> HoppyP.IO HoppyFC.CBool
+foreign import ccall "genpop__AbstractAtomIterator_getAtomInfo" getAtomInfo' ::  HoppyF.Ptr AbstractAtomIterator -> HoppyP.IO (HoppyF.Ptr M2.AtomInfoType)
 foreign import ccall "gendel__AbstractAtomIterator" delete'AbstractAtomIterator :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyP.IO ()
 foreign import ccall "&gendel__AbstractAtomIterator" deletePtr'AbstractAtomIterator :: HoppyF.FunPtr (HoppyF.Ptr AbstractAtomIteratorConst -> HoppyP.IO ())
 foreign import ccall "gencast__SeleAtomIterator__AbstractAtomIterator" castSeleAtomIteratorToAbstractAtomIterator :: HoppyF.Ptr SeleAtomIteratorConst -> HoppyF.Ptr AbstractAtomIteratorConst
@@ -61,10 +64,19 @@ getAtm arg'1 =
   ) =<<
   (getAtm' arg'1')
 
-next :: (AbstractAtomIteratorPtr this) => (this) {- ^ this -} -> (HoppyP.IO ())
+next :: (AbstractAtomIteratorPtr this) => (this) {- ^ this -} -> (HoppyP.IO HoppyP.Bool)
 next arg'1 =
   HoppyFHR.withCppPtr (toAbstractAtomIterator arg'1) $ \arg'1' ->
+  (
+    (HoppyP.return . (/= 0))
+  ) =<<
   (next' arg'1')
+
+getAtomInfo :: (AbstractAtomIteratorPtr this) => (this) {- ^ this -} -> (HoppyP.IO M2.AtomInfoType)
+getAtomInfo arg'1 =
+  HoppyFHR.withCppPtr (toAbstractAtomIterator arg'1) $ \arg'1' ->
+  HoppyP.fmap M2.AtomInfoType
+  (getAtomInfo' arg'1')
 
 data AbstractAtomIteratorConst =
     AbstractAtomIteratorConst (HoppyF.Ptr AbstractAtomIteratorConst)

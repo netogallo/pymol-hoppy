@@ -20,3 +20,4 @@ test (SeleAtomIterator . intPtrToPtr -> it) = do
 --  it <- atomIterator
   next it
   getAtm it
+

@@ -18,11 +18,11 @@ module Data.Pymol.Layer2.AtomInfo (
 import qualified Foreign as HoppyF
 import qualified Foreign.C as HoppyFC
 import qualified Foreign.Hoppy.Runtime as HoppyFHR
-import Prelude (($), (.), (=<<), (==), (>>=))
+import Prelude (($), (.), (==))
 import qualified Prelude as HoppyP
 
-foreign import ccall "genpop__AtomInfoType_anisou_get" anisou_get' ::  HoppyF.Ptr AtomInfoTypeConst -> HoppyP.IO HoppyFC.CFloat
-foreign import ccall "genpop__AtomInfoType_anisou_set" anisou_set' ::  HoppyF.Ptr AtomInfoType -> HoppyFC.CFloat -> HoppyP.IO ()
+foreign import ccall "genpop__AtomInfoType_anisou_get" anisou_get' ::  HoppyF.Ptr AtomInfoTypeConst -> HoppyP.IO (HoppyF.Ptr HoppyFC.CFloat)
+foreign import ccall "genpop__AtomInfoType_anisou_set" anisou_set' ::  HoppyF.Ptr AtomInfoType -> HoppyF.Ptr HoppyFC.CFloat -> HoppyP.IO ()
 foreign import ccall "gendel__AtomInfoType" delete'AtomInfoType :: HoppyF.Ptr AtomInfoTypeConst -> HoppyP.IO ()
 foreign import ccall "&gendel__AtomInfoType" deletePtr'AtomInfoType :: HoppyF.FunPtr (HoppyF.Ptr AtomInfoTypeConst -> HoppyP.IO ())
 
@@ -116,20 +116,15 @@ instance AtomInfoTypeConstPtr AtomInfoType where
 instance AtomInfoTypePtr AtomInfoType where
   toAtomInfoType = HoppyP.id
 
-anisou_get :: (AtomInfoTypeValue arg'1) => (arg'1) -> (HoppyP.IO HoppyP.Float)
+anisou_get :: (AtomInfoTypeValue arg'1) => (arg'1) -> (HoppyP.IO (HoppyF.Ptr HoppyFC.CFloat))
 anisou_get arg'1 =
   withAtomInfoTypePtr arg'1 $ HoppyP.flip HoppyFHR.withCppPtr $ \arg'1' ->
-  (
-    HoppyP.return . HoppyP.realToFrac
-  ) =<<
   (anisou_get' arg'1')
 
-anisou_set :: (AtomInfoTypePtr arg'1) => (arg'1) -> (HoppyP.Float) -> (HoppyP.IO ())
+anisou_set :: (AtomInfoTypePtr arg'1) => (arg'1) -> (HoppyF.Ptr HoppyFC.CFloat) -> (HoppyP.IO ())
 anisou_set arg'1 arg'2 =
   HoppyFHR.withCppPtr (toAtomInfoType arg'1) $ \arg'1' ->
-  (
-    HoppyP.return . HoppyP.realToFrac
-  ) arg'2 >>= \arg'2' ->
+  let arg'2' = arg'2 in
   (anisou_set' arg'1' arg'2')
 
 class AtomInfoTypeSuper a where

@@ -4,7 +4,7 @@ module Foreign.Pymol.Layer2.AtomInfo
   ) where
 import Foreign.Hoppy.Generator.Spec ( Class, Module, classSetEntityPrefix, addReqIncludes, includeLocal, makeClass, ident, mkClassVariable
                                     , makeModule, moduleAddExports, moduleModify', toExport)
-import Foreign.Hoppy.Generator.Types (floatT)
+import Foreign.Hoppy.Generator.Types (floatT, ptrT)
 
 component :: Module
 component =
@@ -21,5 +21,5 @@ classAtomInfo =
 
   where
     methods =
-      [ mkClassVariable "anisou" floatT
+      [ mkClassVariable "anisou" $ ptrT floatT
       ]

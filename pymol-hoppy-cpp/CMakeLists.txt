@@ -40,6 +40,9 @@ find_library(
 add_library(pymol SHARED IMPORTED)
 set_property(TARGET pymol PROPERTY IMPORTED_LOCATION ${PYMOL_CMD})
 
+add_library(python SHARED IMPORTED)
+set_property(TARGET python PROPERTY IMPORTED_LOCATION "/usr/lib/libpython3.so")
+
 # find_program(
 #   GHC_PKG
 #   ghc-pkg
@@ -140,6 +143,7 @@ find_path(
 
 add_library(
   HsPymolCpp SHARED
+  cpp/gen/layer2/gen_AtomInfo.cpp
   cpp/gen/layer3/gen_AtomIterators.cpp
   cpp/gen/gen_PymolSupport.cpp
   cpp/gen/gen_std.cpp
@@ -158,6 +162,11 @@ target_link_libraries(
   pymol
 )
 
+target_link_libraries(
+  HsPymolCpp
+  python
+)
+
 install(
   TARGETS HsPymolCpp
 )
@@ -170,3 +179,4 @@ message(GHC="${GHC}")
 message(GHC_INCLUDE="${GHC_INCLUDE}")
 message(PYMOL_LAYER0="${PYMOL_LAYER0}")
 message(COMPILE_OPTIONS="${COMPILE_OPTIONS}")
+message(Python_EXECUTABLE="${Python_EXECUTABLE}")

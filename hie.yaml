@@ -1,5 +1,8 @@
 cradle:
   cabal:
+    - path: "hoppy-abstractions/src"
+      component: "lib:hoppy-abstractions"
+
     - path: "pymol-hoppy-generator/src"
       component: "exe:pymol-hoppy-generator"
 

@@ -1,4 +1,8 @@
 packages:
+        hoppy/generator/*.cabal
+        hoppy/std/*.cabal
+        hoppy/runtime/*.cabal
+        hoppy-abstractions/*.cabal
         pymol-hoppy-generator/*.cabal
         pymol-hoppy-cpp/*.cabal
         pymol-hoppy/*.cabal

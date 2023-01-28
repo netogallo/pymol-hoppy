@@ -1,0 +1,6 @@
+[submodule "hoppy-abstractions"]
+	path = hoppy-abstractions
+	url = git@github.com:netogallo/hoppy-abstractions.git
+[submodule "hoppy"]
+	path = hoppy
+	url = git@gitlab.com:netogallo/hoppy.git

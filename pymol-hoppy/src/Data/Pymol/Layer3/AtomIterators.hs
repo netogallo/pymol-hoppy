@@ -2,6 +2,8 @@
 ---------- GENERATED FILE, EDITS WILL BE LOST ----------
 
 module Data.Pymol.Layer3.AtomIterators (
+  castDummyAtomIteratorToAbstractAtomIterator,
+  castAbstractAtomIteratorToDummyAtomIterator,
   castSeleAtomIteratorToAbstractAtomIterator,
   castAbstractAtomIteratorToSeleAtomIterator,
   AbstractAtomIteratorValue (..),
@@ -16,6 +18,16 @@ module Data.Pymol.Layer3.AtomIterators (
   castAbstractAtomIteratorToNonconst,
   AbstractAtomIteratorSuper (..),
   AbstractAtomIteratorSuperConst (..),
+  DummyAtomIteratorValue (..),
+  DummyAtomIteratorConstPtr (..),
+  DummyAtomIteratorPtr (..),
+  DummyAtomIteratorConst (..),
+  castDummyAtomIteratorToConst,
+  DummyAtomIterator (..),
+  castDummyAtomIteratorToNonconst,
+  create,
+  DummyAtomIteratorSuper (..),
+  DummyAtomIteratorSuperConst (..),
   SeleAtomIteratorValue (..),
   SeleAtomIteratorConstPtr (..),
   SeleAtomIteratorPtr (..),
@@ -39,6 +51,11 @@ foreign import ccall "genpop__AbstractAtomIterator_next" next' ::  HoppyF.Ptr Ab
 foreign import ccall "genpop__AbstractAtomIterator_getAtomInfo" getAtomInfo' ::  HoppyF.Ptr AbstractAtomIterator -> HoppyP.IO (HoppyF.Ptr M2.AtomInfoType)
 foreign import ccall "gendel__AbstractAtomIterator" delete'AbstractAtomIterator :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyP.IO ()
 foreign import ccall "&gendel__AbstractAtomIterator" deletePtr'AbstractAtomIterator :: HoppyF.FunPtr (HoppyF.Ptr AbstractAtomIteratorConst -> HoppyP.IO ())
+foreign import ccall "genpop__DummyAtomIterator_create" create' ::  HoppyP.IO (HoppyF.Ptr DummyAtomIterator)
+foreign import ccall "gencast__DummyAtomIterator__AbstractAtomIterator" castDummyAtomIteratorToAbstractAtomIterator :: HoppyF.Ptr DummyAtomIteratorConst -> HoppyF.Ptr AbstractAtomIteratorConst
+foreign import ccall "gencast__AbstractAtomIterator__DummyAtomIterator" castAbstractAtomIteratorToDummyAtomIterator :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyF.Ptr DummyAtomIteratorConst
+foreign import ccall "gendel__DummyAtomIterator" delete'DummyAtomIterator :: HoppyF.Ptr DummyAtomIteratorConst -> HoppyP.IO ()
+foreign import ccall "&gendel__DummyAtomIterator" deletePtr'DummyAtomIterator :: HoppyF.FunPtr (HoppyF.Ptr DummyAtomIteratorConst -> HoppyP.IO ())
 foreign import ccall "gencast__SeleAtomIterator__AbstractAtomIterator" castSeleAtomIteratorToAbstractAtomIterator :: HoppyF.Ptr SeleAtomIteratorConst -> HoppyF.Ptr AbstractAtomIteratorConst
 foreign import ccall "gencast__AbstractAtomIterator__SeleAtomIterator" castAbstractAtomIteratorToSeleAtomIterator :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyF.Ptr SeleAtomIteratorConst
 foreign import ccall "gendel__SeleAtomIterator" delete'SeleAtomIterator :: HoppyF.Ptr SeleAtomIteratorConst -> HoppyP.IO ()
@@ -169,6 +186,137 @@ instance HoppyFHR.Assignable (HoppyF.Ptr (HoppyF.Ptr AbstractAtomIterator)) Abst
 
 instance HoppyFHR.Decodable (HoppyF.Ptr (HoppyF.Ptr AbstractAtomIterator)) AbstractAtomIterator where
   decode = HoppyP.fmap AbstractAtomIterator . HoppyF.peek
+
+class DummyAtomIteratorValue a where
+  withDummyAtomIteratorPtr :: a -> (DummyAtomIteratorConst -> HoppyP.IO b) -> HoppyP.IO b
+
+instance {-# OVERLAPPABLE #-} DummyAtomIteratorConstPtr a => DummyAtomIteratorValue a where
+  withDummyAtomIteratorPtr = HoppyP.flip ($) . toDummyAtomIteratorConst
+
+class (AbstractAtomIteratorConstPtr this) => DummyAtomIteratorConstPtr this where
+  toDummyAtomIteratorConst :: this -> DummyAtomIteratorConst
+
+class (DummyAtomIteratorConstPtr this, AbstractAtomIteratorPtr this) => DummyAtomIteratorPtr this where
+  toDummyAtomIterator :: this -> DummyAtomIterator
+
+data DummyAtomIteratorConst =
+    DummyAtomIteratorConst (HoppyF.Ptr DummyAtomIteratorConst)
+  | DummyAtomIteratorConstGc (HoppyF.ForeignPtr ()) (HoppyF.Ptr DummyAtomIteratorConst)
+  deriving (HoppyP.Show)
+
+instance HoppyP.Eq DummyAtomIteratorConst where
+  x == y = HoppyFHR.toPtr x == HoppyFHR.toPtr y
+
+instance HoppyP.Ord DummyAtomIteratorConst where
+  compare x y = HoppyP.compare (HoppyFHR.toPtr x) (HoppyFHR.toPtr y)
+
+castDummyAtomIteratorToConst :: DummyAtomIterator -> DummyAtomIteratorConst
+castDummyAtomIteratorToConst (DummyAtomIterator ptr') = DummyAtomIteratorConst $ HoppyF.castPtr ptr'
+castDummyAtomIteratorToConst (DummyAtomIteratorGc fptr' ptr') = DummyAtomIteratorConstGc fptr' $ HoppyF.castPtr ptr'
+
+instance HoppyFHR.CppPtr DummyAtomIteratorConst where
+  nullptr = DummyAtomIteratorConst HoppyF.nullPtr
+  
+  withCppPtr (DummyAtomIteratorConst ptr') f' = f' ptr'
+  withCppPtr (DummyAtomIteratorConstGc fptr' ptr') f' = HoppyF.withForeignPtr fptr' $ \_ -> f' ptr'
+  
+  toPtr (DummyAtomIteratorConst ptr') = ptr'
+  toPtr (DummyAtomIteratorConstGc _ ptr') = ptr'
+  
+  touchCppPtr (DummyAtomIteratorConst _) = HoppyP.return ()
+  touchCppPtr (DummyAtomIteratorConstGc fptr' _) = HoppyF.touchForeignPtr fptr'
+
+instance HoppyFHR.Deletable DummyAtomIteratorConst where
+  delete (DummyAtomIteratorConst ptr') = delete'DummyAtomIterator ptr'
+  delete (DummyAtomIteratorConstGc _ _) = HoppyP.fail $ HoppyP.concat ["Deletable.delete: Asked to delete a GC-managed ", "DummyAtomIteratorConst", " object."]
+  
+  toGc this'@(DummyAtomIteratorConst ptr') = if ptr' == HoppyF.nullPtr then HoppyP.return this' else HoppyP.fmap (HoppyP.flip DummyAtomIteratorConstGc ptr') $ HoppyF.newForeignPtr (HoppyF.castFunPtr deletePtr'DummyAtomIterator :: HoppyF.FunPtr (HoppyF.Ptr () -> HoppyP.IO ())) (HoppyF.castPtr ptr' :: HoppyF.Ptr ())
+  toGc this'@(DummyAtomIteratorConstGc {}) = HoppyP.return this'
+
+instance DummyAtomIteratorConstPtr DummyAtomIteratorConst where
+  toDummyAtomIteratorConst = HoppyP.id
+
+instance AbstractAtomIteratorConstPtr DummyAtomIteratorConst where
+  toAbstractAtomIteratorConst (DummyAtomIteratorConst ptr') = AbstractAtomIteratorConst $ castDummyAtomIteratorToAbstractAtomIterator ptr'
+  toAbstractAtomIteratorConst (DummyAtomIteratorConstGc fptr' ptr') = AbstractAtomIteratorConstGc fptr' $ castDummyAtomIteratorToAbstractAtomIterator ptr'
+
+data DummyAtomIterator =
+    DummyAtomIterator (HoppyF.Ptr DummyAtomIterator)
+  | DummyAtomIteratorGc (HoppyF.ForeignPtr ()) (HoppyF.Ptr DummyAtomIterator)
+  deriving (HoppyP.Show)
+
+instance HoppyP.Eq DummyAtomIterator where
+  x == y = HoppyFHR.toPtr x == HoppyFHR.toPtr y
+
+instance HoppyP.Ord DummyAtomIterator where
+  compare x y = HoppyP.compare (HoppyFHR.toPtr x) (HoppyFHR.toPtr y)
+
+castDummyAtomIteratorToNonconst :: DummyAtomIteratorConst -> DummyAtomIterator
+castDummyAtomIteratorToNonconst (DummyAtomIteratorConst ptr') = DummyAtomIterator $ HoppyF.castPtr ptr'
+castDummyAtomIteratorToNonconst (DummyAtomIteratorConstGc fptr' ptr') = DummyAtomIteratorGc fptr' $ HoppyF.castPtr ptr'
+
+instance HoppyFHR.CppPtr DummyAtomIterator where
+  nullptr = DummyAtomIterator HoppyF.nullPtr
+  
+  withCppPtr (DummyAtomIterator ptr') f' = f' ptr'
+  withCppPtr (DummyAtomIteratorGc fptr' ptr') f' = HoppyF.withForeignPtr fptr' $ \_ -> f' ptr'
+  
+  toPtr (DummyAtomIterator ptr') = ptr'
+  toPtr (DummyAtomIteratorGc _ ptr') = ptr'
+  
+  touchCppPtr (DummyAtomIterator _) = HoppyP.return ()
+  touchCppPtr (DummyAtomIteratorGc fptr' _) = HoppyF.touchForeignPtr fptr'
+
+instance HoppyFHR.Deletable DummyAtomIterator where
+  delete (DummyAtomIterator ptr') = delete'DummyAtomIterator $ (HoppyF.castPtr ptr' :: HoppyF.Ptr DummyAtomIteratorConst)
+  delete (DummyAtomIteratorGc _ _) = HoppyP.fail $ HoppyP.concat ["Deletable.delete: Asked to delete a GC-managed ", "DummyAtomIterator", " object."]
+  
+  toGc this'@(DummyAtomIterator ptr') = if ptr' == HoppyF.nullPtr then HoppyP.return this' else HoppyP.fmap (HoppyP.flip DummyAtomIteratorGc ptr') $ HoppyF.newForeignPtr (HoppyF.castFunPtr deletePtr'DummyAtomIterator :: HoppyF.FunPtr (HoppyF.Ptr () -> HoppyP.IO ())) (HoppyF.castPtr ptr' :: HoppyF.Ptr ())
+  toGc this'@(DummyAtomIteratorGc {}) = HoppyP.return this'
+
+instance DummyAtomIteratorConstPtr DummyAtomIterator where
+  toDummyAtomIteratorConst (DummyAtomIterator ptr') = DummyAtomIteratorConst $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+  toDummyAtomIteratorConst (DummyAtomIteratorGc fptr' ptr') = DummyAtomIteratorConstGc fptr' $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+
+instance DummyAtomIteratorPtr DummyAtomIterator where
+  toDummyAtomIterator = HoppyP.id
+
+instance AbstractAtomIteratorConstPtr DummyAtomIterator where
+  toAbstractAtomIteratorConst (DummyAtomIterator ptr') = AbstractAtomIteratorConst $ castDummyAtomIteratorToAbstractAtomIterator $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+  toAbstractAtomIteratorConst (DummyAtomIteratorGc fptr' ptr') = AbstractAtomIteratorConstGc fptr' $ castDummyAtomIteratorToAbstractAtomIterator $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+
+instance AbstractAtomIteratorPtr DummyAtomIterator where
+  toAbstractAtomIterator (DummyAtomIterator ptr') = AbstractAtomIterator $ (HoppyF.castPtr :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyF.Ptr AbstractAtomIterator) $ castDummyAtomIteratorToAbstractAtomIterator $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+  toAbstractAtomIterator (DummyAtomIteratorGc fptr' ptr') = AbstractAtomIteratorGc fptr' $ (HoppyF.castPtr :: HoppyF.Ptr AbstractAtomIteratorConst -> HoppyF.Ptr AbstractAtomIterator) $ castDummyAtomIteratorToAbstractAtomIterator $ (HoppyF.castPtr :: HoppyF.Ptr DummyAtomIterator -> HoppyF.Ptr DummyAtomIteratorConst) ptr'
+
+create :: (HoppyP.IO DummyAtomIterator)
+create =
+  HoppyP.fmap DummyAtomIterator
+  (create')
+
+class DummyAtomIteratorSuper a where
+  downToDummyAtomIterator :: a -> DummyAtomIterator
+
+instance DummyAtomIteratorSuper AbstractAtomIterator where
+  downToDummyAtomIterator = castDummyAtomIteratorToNonconst . cast' . castAbstractAtomIteratorToConst
+    where
+      cast' (AbstractAtomIteratorConst ptr') = DummyAtomIteratorConst $ castAbstractAtomIteratorToDummyAtomIterator ptr'
+      cast' (AbstractAtomIteratorConstGc fptr' ptr') = DummyAtomIteratorConstGc fptr' $ castAbstractAtomIteratorToDummyAtomIterator ptr'
+
+class DummyAtomIteratorSuperConst a where
+  downToDummyAtomIteratorConst :: a -> DummyAtomIteratorConst
+
+instance DummyAtomIteratorSuperConst AbstractAtomIteratorConst where
+  downToDummyAtomIteratorConst = cast'
+    where
+      cast' (AbstractAtomIteratorConst ptr') = DummyAtomIteratorConst $ castAbstractAtomIteratorToDummyAtomIterator ptr'
+      cast' (AbstractAtomIteratorConstGc fptr' ptr') = DummyAtomIteratorConstGc fptr' $ castAbstractAtomIteratorToDummyAtomIterator ptr'
+
+instance HoppyFHR.Assignable (HoppyF.Ptr (HoppyF.Ptr DummyAtomIterator)) DummyAtomIterator where
+  assign ptr' value' = HoppyF.poke ptr' $ HoppyFHR.toPtr value'
+
+instance HoppyFHR.Decodable (HoppyF.Ptr (HoppyF.Ptr DummyAtomIterator)) DummyAtomIterator where
+  decode = HoppyP.fmap DummyAtomIterator . HoppyF.peek
 
 class SeleAtomIteratorValue a where
   withSeleAtomIteratorPtr :: a -> (SeleAtomIteratorConst -> HoppyP.IO b) -> HoppyP.IO b

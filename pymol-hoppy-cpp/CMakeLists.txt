@@ -148,6 +148,7 @@ add_library(
   cpp/gen/gen_PymolSupport.cpp
   cpp/gen/gen_std.cpp
   cpp/Support.cpp
+  cpp/dummy/DummyAtomIterator.cpp
 )
 
 set_target_properties(HsPymolCpp PROPERTIES LINKER_LANGUAGE CXX)

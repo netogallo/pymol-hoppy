@@ -11,7 +11,9 @@ import           Data.Pymol.Layer3.AtomIterators (SeleAtomIterator(..), getAtm, 
 import           Data.Pymol.Layer2.AtomInfo (AtomInfoType, AtomInfoTypeValue, anisou_get)
 
 $(asRecord classAtomInfo)
-foreign export ccall test :: IntPtr -> IO Int
+-- foreign export ccall test :: IntPtr -> IO Int
+
+instance Show AtomInfoTypeRec
 
 value :: Float -> AtomInfoTypeRec
 value = AtomInfoTypeRec
